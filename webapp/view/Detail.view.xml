@@ -1,0 +1,116 @@
+<mvc:View
+	controllerName="com.controller.Detail"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic">
+
+	<semantic:DetailPage
+		id="page"
+		navButtonPress="onNavBack"
+		showNavButton="{device>/system/phone}"
+		title="{i18n>detailTitle}"
+		busy="{detailView>/busy}"
+		busyIndicatorDelay="{detailView>/delay}">
+
+		<semantic:content>
+			<ObjectHeader
+				id="objectHeader"
+				title="{LastName}"
+				number="{
+					path: 'EmployeeID',
+					formatter: '.formatter.currencyValue'
+				}"
+				numberUnit="{HomePhone}">
+			</ObjectHeader>
+			<IconTabBar
+				id="iconTabBar"
+				class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter
+						id="iconTabBarFilter1"
+						icon="sap-icon://hint"
+						tooltip="{i18n>detailIconTabBarInfo}">
+						<content id="datadetab">
+       			  <Text xmlns="sap.m" text="primer botón" id="text9"/>
+    </content>
+			
+					</IconTabFilter>
+					<IconTabFilter
+						id="iconTabBarFilter2"
+						icon="sap-icon://attachment"
+						tooltip="{i18n>detailIconTabBarAttachments}">
+						<List headerText="Input">
+<InputListItem label="País">
+			<Input type="Text" value="{Country}"/>
+	</InputListItem>
+<InputListItem label="Ciudad">
+			<Input type="Text" value="{City}" id="txtinput"/>
+	</InputListItem>
+	<InputListItem label="Fecha de nacimiento">
+			<DatePicker xmlns="sap.m" id="picker0" value="{BirthDate}" valueFormat="{BirthDate}"/>
+	</InputListItem>
+	<InputListItem label="prueba">
+			
+<Input type="Text" value="" id="txtoutput"/>
+	</InputListItem>
+	<InputListItem label="prueba">
+			
+<Button text="actualizar" press="onactualizar"></Button>
+	</InputListItem>
+	</List>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+			<Table
+				id="lineItemsList"
+				width="auto"
+				items="{Orders}"
+				updateFinished="onListUpdateFinished"
+				noDataText="{i18n>detailLineItemTableNoDataText}"
+				busyIndicatorDelay="{detailView>/lineItemTableDelay}"
+				class="sapUiResponsiveMargin">
+				<headerToolbar>
+					<Toolbar id="lineItemsToolbar">
+						<Title
+							id="lineItemsHeader"
+							text="{detailView>/lineItemListTitle}"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>detailLineItemTableIDColumn}"/>
+					</Column>
+					<Column
+						minScreenWidth="Tablet"
+						demandPopin="true"
+						hAlign="Right">
+						<Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier
+								title="{OrderID}"
+								text="{OrderID}"/>
+							<ObjectNumber
+								number="{
+									path: 'Freight',
+									formatter: '.formatter.currencyValue'
+								}"
+								unit="{ShipPostalCode}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction
+				id="shareEmail"
+				press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+	</semantic:DetailPage>
+
+</mvc:View>
